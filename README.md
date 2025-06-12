@@ -34,13 +34,13 @@ OxCaml does not yet support architectures other than x86_64 or ARM64.
 
 OxCaml does not yet support Windows. Windows users are recommended to use WSL 2.
 
-## Autoconf
+### Autoconf
 
 Installing OxCaml requires [autoconf](https://www.gnu.org/software/autoconf/).
 Normally, OPAM will prompt you to install autoconf through your system package manager if needed,
 but if that doesn't work, you might have to install it manually.
 
-## Beta extensions
+### Beta extensions
 
 Some Jane Street extensions, like `comprehensions`, are unstable and thus hidden behind the `-extension-universe` compiler flag.
 You can use the `flags` field in `dune` files to enable them:
@@ -51,6 +51,6 @@ You can use the `flags` field in `dune` files to enable them:
  (flags (:standard -extension-universe beta)))
 ```
 
-## SIMD support on ARM
+### SIMD support on ARM
 
 The SIMD compiler extension is not yet supported on ARM architectures.
