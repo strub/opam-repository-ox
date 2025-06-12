@@ -1,54 +1,46 @@
-# OPAM repository for OCaml with Jane Street extensions
+# OPAM repository for OxCaml
 
-This repository is a package repository for the [opam package manager](https://opam.ocaml.org). It contains OCaml with Jane Street language
-extensions, including all Jane Street packages and necessary patches to external packages for building our libraries.
+This repository is a package repository for the [opam package manager](https://opam.ocaml.org). It contains [OxCaml](https://github.com/oxcaml/oxcaml), together with Jane Street libraries and necessary patches to other packages.
 
 ## Installation
-
-**WARNING**: this repository is experimental and is not officially supported by Jane Street. Use at your own risk.
-
-Note: building our compiler requires `autoconf`, which is not available on certain platforms by default. You can install it with:
-```
-# Ubuntu
-sudo apt install autoconf
-
-# MacOS, using Homebrew
-brew install autoconf
-```
 
 Start by creating a new switch including our repository in OPAM:
 
 ```sh
 # Update to make sure you get the latest version of all packages
 opam update --all
-# This may take some time
-opam switch create 5.2.0+ox --repos ox=git+https://github.com/janestreet/opam-repository.git#with-extensions,default
+# This may take some time to install
+opam switch create 5.2.0+ox --repos ox=git+https://github.com/oxcaml/opam-repository.git,default
 eval $(opam env --switch 5.2.0+ox)
 ```
 
-If the installation was successful, you can now use OCaml with our extensions! Try creating `hello.ml` and running it with `ocamlc -o hello hello.ml && ./hello`:
+If the installation was successful, you can now use OxCaml!
 
-```ocaml
-external globalize_string : string @ local -> string = "%obj_dup"
-
-let () =
-  let local_message : string @@ local = "Hello, World" in
-  (* Can't print [local_message] -- the value would escape. *)
-  let global_message = globalize_string local_message in
-  (* Copy the string to create a new global value. *)
-  print_endline global_message
-;;
-```
-
-Our switch now supports developer tooling such as `ocamlformat` or `merlin`:
+OxCaml supports developer tooling such as `ocamlformat` or `merlin`:
 
 ```sh
-opam install ocamlformat merlin ocaml-lsp-server
+opam install ocamlformat merlin ocaml-lsp-server utop
 ```
 
-Our libraries such as Base and Core contain various functions to deal with local values. Install them with `opam install`,
-and read their documentation and interface files to learn more. For a general introduction to OCaml and our libraries,
-refer to [Real World OCaml](https://dev.realworldocaml.org/index.html).
+Jane Street libraries such as Base and Core support many OxCaml features. Install them with `opam install`, and read their documentation and interface files to learn more. For a general introduction to OCaml and our libraries, refer to [Real World OCaml](https://dev.realworldocaml.org/index.html).
+
+## Known issues
+
+### Platforms other than x86_64 or ARM64
+
+OxCaml does not yet support architectures other than x86_64 or ARM64.
+
+### Windows
+
+OxCaml does not yet support Windows. Windows users are recommended to use WSL 2.
+
+## Autoconf
+
+Installing OxCaml requires [autoconf](https://www.gnu.org/software/autoconf/).
+Normally, OPAM will prompt you to install autoconf through your system package manager if needed,
+but if that doesn't work, you might have to install it manually.
+
+## Beta extensions
 
 Some Jane Street extensions, like `comprehensions`, are unstable and thus hidden behind the `-extension-universe` compiler flag.
 You can use the `flags` field in `dune` files to enable them:
@@ -59,12 +51,6 @@ You can use the `flags` field in `dune` files to enable them:
  (flags (:standard -extension-universe beta)))
 ```
 
-## Known issues
+## SIMD support on ARM
 
-### Platforms other than x86_64 or ARM64
-
-This compiler version does not yet support architectures other than x86_64 or ARM64.
-
-### Windows
-
-This compiler version does not yet support Windows. Windows users are recommended to use WSL 2 to try out our compiler.
+The SIMD compiler extension is not yet supported on ARM architectures.
