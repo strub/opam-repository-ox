@@ -30,6 +30,10 @@ Jane Street libraries such as Base and Core support many OxCaml features. Instal
 
 OxCaml does not yet support architectures other than x86_64 or ARM64.
 
+### musl-based distributions
+
+OxCaml depends on glibc, so musl-based Linux distributions like Alpine are not yet supported.
+
 ### Windows
 
 OxCaml does not yet support Windows. Windows users are recommended to use WSL 2.
