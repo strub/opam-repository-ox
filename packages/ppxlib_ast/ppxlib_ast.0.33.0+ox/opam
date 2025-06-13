@@ -31,6 +31,7 @@ depends: [
   "re"                  {with-test & >= "1.9.0"}
   "cinaps"              {with-test & >= "v0.12.1"}
   "odoc"                {with-doc}
+  "bash"                {build}
 ]
 conflicts: [
   "ocaml-migrate-parsetree" {< "2.0.0"}
@@ -39,7 +40,7 @@ conflicts: [
   "base-effects"
 ]
 build: [
-  ["sh" "./cleanup.sh"]
+  ["bash" "./cleanup.sh"]
   ["dune" "subst"] {dev}
   [
     "dune"
