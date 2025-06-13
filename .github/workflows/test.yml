@@ -23,26 +23,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: Get hash of the ocaml-variant opam file
-        id: hash-opam-file
-        run: |
-          HASH=$(shasum -a 256 packages/ocaml-variants/${OCAML_VARIANT}/opam | awk '{print $1}')
-          echo "hash=${HASH}" >> "$GITHUB_OUTPUT"
-
-      - uses: ocaml/setup-ocaml@v3
+      - name: Run Test OxCaml action
+        uses: ./.github/actions/test-oxcaml
         with:
-          # Invalidate cache when opam file for the ocaml-variant changes
-          cache-prefix: ${{ steps.hash-opam-file.outputs.hash }}
           ocaml-compiler: ${{ env.OCAML_VARIANT }}
-          opam-pin: false
-          opam-repositories: |
-            oxcaml: .
-            default: https://github.com/ocaml/opam-repository.git
-
-      - name: opam install packages
-        run: |
-          opam --version
-          opam repository list
-          opam list
-          opam install ocamlformat merlin ocaml-lsp-server utop parallel core_unix
-          opam list
