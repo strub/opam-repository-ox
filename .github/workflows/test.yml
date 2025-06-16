@@ -44,5 +44,5 @@ jobs:
           opam --version
           opam repository list
           opam list
-          opam install ocamlformat merlin ocaml-lsp-server utop
+          opam install ocamlformat merlin ocaml-lsp-server utop parallel core_unix
           opam list
