@@ -94,7 +94,7 @@ url {
   src:
     "https://github.com/oxcaml/oxcaml/archive/refs/tags/5.2.0minus-11-opam.tar.gz"
   checksum:
-    "sha256=21dc6127a2a16522d2d3df890cb467c2886f1ba9918eb0d2a4d67246f85f072e"
+    "sha256=c33697ad5ee104d2029babbf50a7613405996d971bd47fe33ca851db6270f731"
 }
 patches: ["ignore-opam.patch"]
 extra-files: [
