@@ -1,0 +1,11 @@
+--- why3-1.8.1.orig/Makefile.in	2025-06-04 10:59:28.000000000 +0200
++++ why3-1.8.1/Makefile.in	2025-09-02 11:55:37.785486698 +0200
+@@ -344,6 +344,8 @@
+ 
+ $(LIBDEP) $(LIBCMO) $(LIBCMX) $(LIBCMI): INCLUDES += $(LIBINCLUDES)
+ $(LIBCMX): OFLAGS += -for-pack Why3
++$(LIBCMI): BFLAGS += -for-pack Why3
++$(LIBCMO): BFLAGS += -for-pack Why3
+ 
+ $(LIBDEP): $(LIBGENERATED)
+ 
